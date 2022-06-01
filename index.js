@@ -68,6 +68,24 @@ class BinarySearchTree {
     }
   }
 
+  bFS(q, list) {
+    if(!q.length){
+      return list;
+    }
+    let currentNode = q.shift();
+    //if (currentNode.value.amount) {
+      list.push(currentNode.value);
+
+   // }
+    if(currentNode.left) {
+      q.push(currentNode.left);
+    }
+    if(currentNode.right) {
+      q.push(currentNode.right);
+    }
+    return this.bFS(q, list);
+  }
+
   lookup(value) {
     //Code here
   }
@@ -79,7 +97,7 @@ tree.insertBT(11);
 tree.insertBT(4);
 tree.insertBT(6);
 tree.insertBT(13);
-tree.insertBT(14);
+tree.insertBT({"amount": 10000});
 tree.insertBT(12);
 tree.insertBT(1);
 tree.insertBT(2);
@@ -92,7 +110,8 @@ tree.insertBT(10);
 
 //tree.insertBT(1)
 console.log(traverse(tree.root));
-
+let a = tree.bFS([tree.root], []);
+console.log("BFS", a);
 //     9
 //  4     10
 //1  6  15  11
@@ -123,16 +142,13 @@ class Solution {
       return 0;
     }
     let left = this.lc(node.left);
-    console.log('left value ', left, ' for node', node);
     let right = this.lc(node.right);
-    console.log('right value ', right, ' for node', node);
     let max = 1;
     if (node.left == null || node.left.value == node.value + 1) {
       max = Math.max(left + 1, max);
     }
     if (node.right == null || node.right.value == node.value + 1) {
       max = Math.max(right + 1, max);
-      console.log('right gets added ', right, ' for node', node);
     }
     this.result = Math.max(this.result, max); //1
     return max;
