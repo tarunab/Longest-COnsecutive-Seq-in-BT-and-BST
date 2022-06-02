@@ -124,6 +124,21 @@ function traverse(node) {
   return tree;
 }
 
+function diameterOfBinaryTree(root) {
+  var max = -Infinity;
+  function cal(root){
+    if(!root){
+      return 0;
+    }
+    const [left, right] = [cal(root.left), cal(root.right)];
+    max = Math.max(max, left+right)
+    return 1+Math.max(left,right)
+  }
+  cal(root);
+  return max;
+    
+};
+
 class Solution {
   result = 0;
   longestConsecutive(root) {
